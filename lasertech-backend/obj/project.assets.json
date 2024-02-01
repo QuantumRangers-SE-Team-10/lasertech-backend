@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/alexsmacbookpro/RiderProjects/lasertech-backend/lasertech-backend/lasertech-backend.csproj",
+      "projectUniqueName": "/Users/alexsmacbookpro/Desktop/lasertech-backend/lasertech-backend/lasertech-backend.csproj",
       "projectName": "lasertech-backend",
-      "projectPath": "/Users/alexsmacbookpro/RiderProjects/lasertech-backend/lasertech-backend/lasertech-backend.csproj",
+      "projectPath": "/Users/alexsmacbookpro/Desktop/lasertech-backend/lasertech-backend/lasertech-backend.csproj",
       "packagesPath": "/Users/alexsmacbookpro/.nuget/packages/",
-      "outputPath": "/Users/alexsmacbookpro/RiderProjects/lasertech-backend/lasertech-backend/obj/",
+      "outputPath": "/Users/alexsmacbookpro/Desktop/lasertech-backend/lasertech-backend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/alexsmacbookpro/.nuget/NuGet/NuGet.Config"

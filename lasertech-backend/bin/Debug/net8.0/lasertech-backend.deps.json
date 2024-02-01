@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "lasertech-backend/1.0.0": {
+        "runtime": {
+          "lasertech-backend.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "lasertech-backend/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
