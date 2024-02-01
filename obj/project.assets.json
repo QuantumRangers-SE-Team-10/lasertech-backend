@@ -14,11 +14,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD:lasertech-backend/obj/project.assets.json
       "projectUniqueName": "C:\\Users\\malac\\Documents\\University\\Software\\Project\\lasertech-backend\\lasertech-backend.csproj",
       "projectName": "lasertech-backend",
       "projectPath": "C:\\Users\\malac\\Documents\\University\\Software\\Project\\lasertech-backend\\lasertech-backend.csproj",
       "packagesPath": "C:\\Users\\malac\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\malac\\Documents\\University\\Software\\Project\\lasertech-backend\\obj\\",
+=======
+      "projectUniqueName": "/Users/alexsmacbookpro/Desktop/lasertech-backend/lasertech-backend.csproj",
+      "projectName": "lasertech-backend",
+      "projectPath": "/Users/alexsmacbookpro/Desktop/lasertech-backend/lasertech-backend.csproj",
+      "packagesPath": "/Users/alexsmacbookpro/.nuget/packages/",
+      "outputPath": "/Users/alexsmacbookpro/Desktop/lasertech-backend/obj/",
+>>>>>>> acaaaa32de3b1434f5840ad6e50631bab89df068:obj/project.assets.json
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

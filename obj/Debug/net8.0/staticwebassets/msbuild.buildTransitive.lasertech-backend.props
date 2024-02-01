@@ -1,0 +1,7 @@
+﻿<Project>
+<<<<<<< HEAD:lasertech-backend/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.lasertech-backend.props
+  <Import Project="..\buildMultiTargeting\lasertech-backend.props" />
+=======
+  <Import Project="../buildMultiTargeting/lasertech-backend.props" />
+>>>>>>> acaaaa32de3b1434f5840ad6e50631bab89df068:obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.lasertech-backend.props
+</Project>
