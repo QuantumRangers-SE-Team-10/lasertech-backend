@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("lasertech-backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+acaaaa32de3b1434f5840ad6e50631bab89df068")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f64b2f786d07e813055050cdd77a988f0d595c30")]
 [assembly: System.Reflection.AssemblyProductAttribute("lasertech-backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("lasertech-backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
