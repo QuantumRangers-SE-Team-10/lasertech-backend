@@ -18,7 +18,6 @@ namespace lasertech_backend.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("lasertech_backend.Model.Player", b =>
@@ -32,9 +31,7 @@ namespace lasertech_backend.Migrations
                     b.Property<string>("Codename")
                         .IsRequired()
                         .HasColumnType("text");
-
                     b.HasKey("Id");
-
                     b.ToTable("players");
                 });
 #pragma warning restore 612, 618
