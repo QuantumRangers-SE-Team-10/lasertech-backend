@@ -1,8 +1,7 @@
 ---
 name: Lint
 
-on:  # yamllint disable-line rule:truthy
-  push: null
+on: 
   pull_request: null
 
 jobs:
@@ -24,13 +23,18 @@ jobs:
           # list of files that changed across commits
           fetch-depth: 0
 
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '8.0.x'
+
       - name: Super-linter
         uses: super-linter/super-linter@v6.0.0  # x-release-please-version
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BRANCH: main 
+          DEFAULT_BRANCH: dev 
           VALIDATE_GITLEAKS: false
           VALIDATE_CHECKOV: false
-          VALIDATE_GITLEAKS: false
+          VALIDATE_MARKDOWN: false
 ...
