@@ -30,7 +30,7 @@ jobs:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BRANCH: main 
-          DISABLE_GITLEAKS: true
-          DISABLE_CHECKOV: true  
-          DISABLE_MARKDOWN: true
+          VALIDATE_GITLEAKS: false
+          VALIDATE_CHECKOV: false
+          VALIDATE_GITLEAKS: false
 ...
