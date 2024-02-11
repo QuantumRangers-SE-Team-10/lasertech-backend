@@ -14,11 +14,10 @@ public class UdpListenerService
         this.udpClient = new UdpClient(listenPort);
     }
 
-    public async Task StartListening()
+    public async Task StartListening(CancellationToken token)
     {
         while (true)
         {
-            
             var receivedResult = await udpClient.ReceiveAsync();
             string receivedMessage = Encoding.ASCII.GetString(receivedResult.Buffer);
             Console.WriteLine($"Received: {receivedMessage}");

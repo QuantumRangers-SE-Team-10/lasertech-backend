@@ -10,24 +10,23 @@ builder.Services.AddDbContext<GameContext>(options => options.UseNpgsql(connecti
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
 int udpPort = 7500;
 
 var udpListenerService = new UdpListenerService(udpPort);
-
+var udpCancellationToken = new CancellationTokenSource().Token;
 var app = builder.Build();
-var udp = Task.Run(() => udpListenerService.StartListening());
+Task.Run(() => udpListenerService.StartListening(udpCancellationToken), udpCancellationToken);
 
 if (env.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+        c.RoutePrefix = string.Empty;
+    });
 }
 
-var testing = 20;
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
-
-
