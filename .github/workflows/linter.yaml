@@ -24,6 +24,11 @@ jobs:
           # list of files that changed across commits
           fetch-depth: 0
 
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '8.0.x'
+
       - name: Super-linter
         uses: super-linter/super-linter@v6.0.0  # x-release-please-version
         env:
