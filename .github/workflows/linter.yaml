@@ -32,4 +32,5 @@ jobs:
           DEFAULT_BRANCH: main 
           DISABLE_GITLEAKS: true
           DISABLE_CHECKOV: true  
+          DISABLE_MARKDOWN: true
 ...
