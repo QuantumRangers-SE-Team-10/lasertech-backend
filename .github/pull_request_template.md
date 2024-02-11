@@ -11,5 +11,5 @@ _Add more context to descrive the changes..._
 
 ### Checks
 - [ ] I have tested my code on a different machine and confirmed that it works as expected.
-- [ ] Reviewer - I have cloned the branch, tested it, and ensured that it works as.
+- [ ] Reviewer - I have cloned the branch, tested it, and ensured that it works as expected.
 
