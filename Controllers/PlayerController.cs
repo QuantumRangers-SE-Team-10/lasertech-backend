@@ -1,6 +1,32 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace lasertech_backend.Controllers;
 
-public class PlayerController
+[Route("api/[controller]")]
+[ApiController]
+public class PlayerController:ControllerBase
 {
+    [HttpGet]
+    public IEnumerable<string> Get()
+    {
+        return new string[] { "Player 1", "player 2" };
+    }
+
+    [HttpGet("{id}")]
+    public string Get(int id)
+    {
+        return "player " + id;
+    }
     
+    [HttpPost]
+    public string Post(int id)
+    {
+        return "player " + id + " created";
+    }
+    
+    [HttpPut("{id}")]
+    public string Put(int id)
+    {
+        return "user " + id + " updated";
+    }
 }

@@ -18,6 +18,7 @@ public class UdpListenerService
     {
         while (true)
         {
+            
             var receivedResult = await udpClient.ReceiveAsync();
             string receivedMessage = Encoding.ASCII.GetString(receivedResult.Buffer);
             Console.WriteLine($"Received: {receivedMessage}");
