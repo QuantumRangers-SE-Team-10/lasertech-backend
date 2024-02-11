@@ -1,43 +1,19 @@
 using lasertech_backend.Model;
 using Microsoft.EntityFrameworkCore;
 
+var builder = WebApplication.CreateBuilder();
 
-class Program
-{
-    public static void Main(string[] args)
-    {
+var connectionString = builder.Configuration.GetConnectionString("GameContext");
+builder.Services.AddDbContext<GameContext>(options => options.UseNpgsql(connectionString));
 
-        var builder = WebApplication.CreateBuilder();
+int udpPort = 7500;
 
-        var connectionString = builder.Configuration.GetConnectionString("GameContext");
-        builder.Services.AddDbContext<GameContext>(options =>
-            options.UseNpgsql(connectionString)
-            );
+var udpListenerService = new UdpListenerService(udpPort);
+var app = builder.Build();
+var udp = Task.Run(() => udpListenerService.StartListening());
 
+app.MapGet("/", () => "Hello World!");
 
-        GameConnectionLoop();
-
-        var app = builder.Build();
-
-        app.MapGet("/", () => "Hello World!");
-
-        app.Run();
-
- 
-
-    }
-
-    private async static void GameConnectionLoop()
-    {
-
-        int udpPort = 7500; // Example port
-
-        var udpListenerService = new UdpListenerService(udpPort);
-        await Task.Run(() => udpListenerService.StartListening()); // Run the UDP listener in a background task
-
-    }
-}
-
-
+app.Run();
 
 
