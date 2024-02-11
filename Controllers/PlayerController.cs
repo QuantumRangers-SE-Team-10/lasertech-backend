@@ -4,7 +4,7 @@ namespace lasertech_backend.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class PlayerController:ControllerBase
+public class PlayerController : ControllerBase
 {
     [HttpGet]
     public IEnumerable<string> Get()
@@ -17,13 +17,13 @@ public class PlayerController:ControllerBase
     {
         return "player " + id;
     }
-    
+
     [HttpPost]
     public string Post(int id)
     {
         return "player " + id + " created";
     }
-    
+
     [HttpPut("{id}")]
     public string Put(int id)
     {
