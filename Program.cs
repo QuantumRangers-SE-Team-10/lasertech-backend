@@ -25,6 +25,7 @@ if (env.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+var testing = 20;
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
