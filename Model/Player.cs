@@ -12,5 +12,10 @@ public class Player
     public string Codename { get; set; }
 
     [DataType(DataType.DateTime, ErrorMessage = "Invalid datatype for LastUpdated")]
-    public DateTime LastUpdated { get; set; }
+    public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
+
+    public Player(string codename)
+    {
+        Codename = codename;
+    }
 }

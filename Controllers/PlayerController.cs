@@ -1,3 +1,4 @@
+using lasertech_backend.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lasertech_backend.Controllers;
@@ -6,6 +7,13 @@ namespace lasertech_backend.Controllers;
 [ApiController]
 public class PlayerController : ControllerBase
 {
+    private readonly GameContext Context;
+
+    public PlayerController(GameContext context)
+    {
+        this.Context = context;
+    }
+
     [HttpGet]
     public IEnumerable<string> Get()
     {
@@ -21,6 +29,9 @@ public class PlayerController : ControllerBase
     [HttpPost]
     public string Post(string codename)
     {
+        var temp = new Player(codename);
+        Context.Add(temp);
+        Context.SaveChanges();
         return "player " + codename + " created";
     }
 
