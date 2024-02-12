@@ -19,9 +19,9 @@ public class PlayerController : ControllerBase
     }
 
     [HttpPost]
-    public string Post(int id)
+    public string Post(string codename)
     {
-        return "player " + id + " created";
+        return "player " + codename + " created";
     }
 
     [HttpPut("{id}")]
