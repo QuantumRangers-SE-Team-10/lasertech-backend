@@ -17,29 +17,31 @@ public class PlayerController : ControllerBase
     [HttpGet]
     public List<Player> Get()
     {
-        var players = Context.players.ToList();
-        return players;
+        return Context.players.ToList();
     }
 
     [HttpGet("{id}")]
     public Player Get(int id)
     {
-        var player = Context.players.Find(id);
-        return player;
+        return Context.players.Find(id)!;
     }
 
     [HttpPost]
-    public string Post(string codename)
+    public Player Post(string codename)
     {
-        var temp = new Player(codename);
-        Context.Add(temp);
+        var player = new Player(codename);
+        Context.Add(player);
         Context.SaveChanges();
-        return "player " + codename + " created";
+        return player;
     }
 
     [HttpPut("{id}")]
-    public string Put(int id)
+    public Player Put(int id, string newCodename)
     {
-        return "user " + id + " updated";
+        var player = Context.players.Find(id)!;
+        player.Codename = newCodename;
+        player.LastUpdated = DateTime.UtcNow;
+        Context.SaveChanges();
+        return player;
     }
 }
