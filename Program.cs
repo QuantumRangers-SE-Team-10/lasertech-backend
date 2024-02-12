@@ -2,11 +2,9 @@ using lasertech_backend.Model;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder();
-var connectionString = builder.Configuration.GetConnectionString("GameContext");
 var env = builder.Environment;
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<GameContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
