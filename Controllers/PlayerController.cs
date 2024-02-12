@@ -15,15 +15,17 @@ public class PlayerController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<string> Get()
+    public List<Player> Get()
     {
-        return new string[] { "Player 1", "player 2" };
+        var players = Context.players.ToList();
+        return players;
     }
 
     [HttpGet("{id}")]
-    public string Get(int id)
+    public Player Get(int id)
     {
-        return "player " + id;
+        var player = Context.players.Find(id);
+        return player;
     }
 
     [HttpPost]
