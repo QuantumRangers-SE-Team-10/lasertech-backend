@@ -7,10 +7,19 @@ var env = builder.Environment;
 
 var connectionString = builder.Configuration.GetConnectionString("GameContext");
 builder.Services.AddDbContext<GameContext>(options => options.UseNpgsql(connectionString));
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 
 int udpPort = 7500;
 
@@ -27,6 +36,7 @@ if (env.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
         c.RoutePrefix = string.Empty;
     });
+    app.UseCors("AllowAll");
 }
 
 app.UseHttpsRedirection();
