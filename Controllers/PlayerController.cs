@@ -1,3 +1,4 @@
+using lasertech_backend.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lasertech_backend.Controllers;
@@ -6,27 +7,41 @@ namespace lasertech_backend.Controllers;
 [ApiController]
 public class PlayerController : ControllerBase
 {
-    [HttpGet]
-    public IEnumerable<string> Get()
+    private readonly GameContext Context;
+
+    public PlayerController(GameContext context)
     {
-        return new string[] { "Player 1", "player 2" };
+        this.Context = context;
+    }
+
+    [HttpGet]
+    public List<Player> Get()
+    {
+        return Context.players.ToList();
     }
 
     [HttpGet("{id}")]
-    public string Get(int id)
+    public Player Get(int id)
     {
-        return "player " + id;
+        return Context.players.Find(id)!;
     }
 
     [HttpPost]
-    public string Post(int id)
+    public Player Post(string codename)
     {
-        return "player " + id + " created";
+        var player = new Player(codename);
+        Context.Add(player);
+        Context.SaveChanges();
+        return player;
     }
 
     [HttpPut("{id}")]
-    public string Put(int id)
+    public Player Put(int id, string newCodename)
     {
-        return "user " + id + " updated";
+        var player = Context.players.Find(id)!;
+        player.Codename = newCodename;
+        player.LastUpdated = DateTime.UtcNow;
+        Context.SaveChanges();
+        return player;
     }
 }
