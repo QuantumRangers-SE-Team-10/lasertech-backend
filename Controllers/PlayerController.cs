@@ -27,9 +27,9 @@ public class PlayerController : ControllerBase
     }
 
     [HttpPost]
-    public Player Post(string codename)
+    public Player Post(int playerID, string codename)
     {
-        var player = new Player(codename);
+        var player = new Player(playerID, codename);
         Context.Add(player);
         Context.SaveChanges();
         return player;

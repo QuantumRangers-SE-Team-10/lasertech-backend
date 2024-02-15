@@ -20,7 +20,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-
 int udpPort = 7500;
 
 var udpListenerService = new UdpListenerService(udpPort);
