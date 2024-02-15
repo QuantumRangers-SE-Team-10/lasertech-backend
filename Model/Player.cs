@@ -4,7 +4,8 @@ namespace lasertech_backend.Model;
 
 public class Player
 {
-    public int Id { get; set; }
+    [Key]
+    public int PlayerID { get; set; }
 
     [Required(ErrorMessage = "Codename is required")]
     [MinLength(3, ErrorMessage = "Codename need to be more than 3 character")]
@@ -14,8 +15,9 @@ public class Player
     [DataType(DataType.DateTime, ErrorMessage = "Invalid datatype for LastUpdated")]
     public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
 
-    public Player(string codename)
+    public Player(int playerID,string codename)
     {
+        PlayerID = playerID;
         Codename = codename;
     }
 }
