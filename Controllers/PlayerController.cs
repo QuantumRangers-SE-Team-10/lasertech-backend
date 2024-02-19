@@ -20,10 +20,10 @@ public class PlayerController : ControllerBase
         return Context.players.ToList();
     }
 
-    [HttpGet("{id}")]
-    public Player Get(int id)
+    [HttpGet("{playerID}")]
+    public Player Get(int playerID)
     {
-        return Context.players.Find(id)!;
+        return Context.players.Find(playerID)!;
     }
 
     [HttpPost]
@@ -35,10 +35,10 @@ public class PlayerController : ControllerBase
         return player;
     }
 
-    [HttpPut("{id}")]
-    public Player Put(int id, string newCodename)
+    [HttpPut("{playerID}")]
+    public Player Put(int playerID, string newCodename)
     {
-        var player = Context.players.Find(id)!;
+        var player = Context.players.Find(playerID)!;
         player.Codename = newCodename;
         player.LastUpdated = DateTime.UtcNow;
         Context.SaveChanges();

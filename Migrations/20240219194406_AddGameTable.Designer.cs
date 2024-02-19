@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using lasertech_backend.Model;
@@ -11,9 +12,11 @@ using lasertech_backend.Model;
 namespace lasertech_backend.Migrations
 {
     [DbContext(typeof(GameContext))]
-    partial class GameContextModelSnapshot : ModelSnapshot
+    [Migration("20240219194406_AddGameTable")]
+    partial class AddGameTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,25 +24,6 @@ namespace lasertech_backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("lasertech_backend.Model.Game", b =>
-                {
-                    b.Property<int>("GameID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("GameID"));
-
-                    b.Property<int>("BlueScore")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RedScore")
-                        .HasColumnType("integer");
-
-                    b.HasKey("GameID");
-
-                    b.ToTable("games");
-                });
 
             modelBuilder.Entity("lasertech_backend.Model.Player", b =>
                 {
