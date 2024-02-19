@@ -3,17 +3,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace lasertech_backend.Controllers;
 
+
+
 [Route("api/[controller]")]
 [ApiController]
-public class PlayerController : ControllerBase
+public class GameController: ControllerBase
 {
     private readonly GameContext Context;
 
-    public PlayerController(GameContext context)
+    public GameController(GameContext context)
     {
         this.Context = context;
     }
-
+  
     [HttpGet]
     public List<Player> Get()
     {
@@ -34,14 +36,5 @@ public class PlayerController : ControllerBase
         Context.SaveChanges();
         return player;
     }
-
-    [HttpPut("{playerID}")]
-    public Player Put(int playerID, string newCodename)
-    {
-        var player = Context.players.Find(playerID)!;
-        player.Codename = newCodename;
-        player.LastUpdated = DateTime.UtcNow;
-        Context.SaveChanges();
-        return player;
-    }
+    
 }
