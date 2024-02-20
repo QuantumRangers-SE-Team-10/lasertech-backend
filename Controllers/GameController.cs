@@ -8,7 +8,6 @@ namespace lasertech_backend.Controllers;
 public class GameController : ControllerBase
 {
     private readonly GameContext Context;
-
     public GameController(GameContext context)
     {
         this.Context = context;
@@ -31,6 +30,15 @@ public class GameController : ControllerBase
     {
         var game = new Game();
         Context.Add(game);
+        Context.SaveChanges();
+        return game;
+    }
+    
+    [HttpPost("{gameID}")]
+    public Game Post(int gameID,PlayerSession playerSession)
+    {
+        var game = Context.games.Find(gameID)!;
+        game.AddPlayerSessionTable(playerSession);
         Context.SaveChanges();
         return game;
     }
