@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using lasertech_backend.DTOs;
 using lasertech_backend.Migrations;
 
 namespace lasertech_backend.Model;
@@ -15,10 +16,5 @@ public class Game
         BlueScore = 0;
         RedScore = 0;
         PlayerSessions = new List<PlayerSession>();
-    }
-
-    public void AddPlayerSessionTable(PlayerSession playerSession)
-    {
-        PlayerSessions.Append(playerSession);
     }
 }

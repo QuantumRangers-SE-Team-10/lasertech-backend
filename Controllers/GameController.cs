@@ -1,5 +1,7 @@
+using lasertech_backend.DTOs;
 using lasertech_backend.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace lasertech_backend.Controllers;
 
@@ -8,38 +10,34 @@ namespace lasertech_backend.Controllers;
 public class GameController : ControllerBase
 {
     private readonly GameContext Context;
+
     public GameController(GameContext context)
     {
         this.Context = context;
     }
 
     [HttpGet]
-    public List<Game> Get()
+    public async Task<ActionResult<List<Game>>> Get()
     {
-        return Context.games.ToList();
+        var games = await Context.games.ToListAsync();
+        return Ok(games);
     }
 
     [HttpGet("{gameID}")]
-    public Game Get(int gameID)
+    public async Task<ActionResult<Game>> Get(int gameID)
     {
-        return Context.games.Find(gameID)!;
+        var game = await Context.games
+            .Include(g => g.PlayerSessions)
+            .FirstOrDefaultAsync(g => g.GameID == gameID);
+        return Ok(game);
     }
 
     [HttpPost]
-    public Game Post()
+    public async Task<ActionResult<Game>> Post()
     {
         var game = new Game();
         Context.Add(game);
-        Context.SaveChanges();
-        return game;
-    }
-    
-    [HttpPost("{gameID}")]
-    public Game Post(int gameID,PlayerSession playerSession)
-    {
-        var game = Context.games.Find(gameID)!;
-        game.AddPlayerSessionTable(playerSession);
-        Context.SaveChanges();
+        await Context.SaveChangesAsync();
         return game;
     }
 }
