@@ -40,7 +40,7 @@ public class PlayerController : ControllerBase
     [HttpPut("{playerID}")]
     public async Task<ActionResult> Put(int playerID, [FromBody] string newCodename)
     {
-        var player = await Context.players.FindAsync(playerID);
+        var player = await Context.players.FindAsync(playerID)!;
         player.Codename = newCodename;
         player.LastUpdated = DateTime.UtcNow;
         await Context.SaveChangesAsync();
