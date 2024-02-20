@@ -1,5 +1,6 @@
 using lasertech_backend.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace lasertech_backend.Controllers;
 
@@ -15,33 +16,34 @@ public class PlayerController : ControllerBase
     }
 
     [HttpGet]
-    public List<Player> Get()
+    public async Task<ActionResult<List<Player>>> Get()
     {
-        return Context.players.ToList();
+        var player = await Context.players.ToListAsync();
+        return Ok(player);
     }
 
     [HttpGet("{playerID}")]
-    public Player Get(int playerID)
+    public async Task<ActionResult<Player>> Get(int playerID)
     {
-        return Context.players.Find(playerID)!;
+        var player = await Context.players.FindAsync(playerID);
+        return Ok(player);
     }
 
     [HttpPost]
-    public Player Post(int playerID, string codename)
+    public async Task<ActionResult<Player>> Post([FromBody] Player player)
     {
-        var player = new Player(playerID, codename);
         Context.Add(player);
-        Context.SaveChanges();
-        return player;
+        await Context.SaveChangesAsync();
+        return Ok(player);
     }
 
     [HttpPut("{playerID}")]
-    public Player Put(int playerID, string newCodename)
+    public async Task<ActionResult> Put(int playerID, [FromBody] string newCodename)
     {
-        var player = Context.players.Find(playerID)!;
+        var player = await Context.players.FindAsync(playerID)!;
         player.Codename = newCodename;
         player.LastUpdated = DateTime.UtcNow;
-        Context.SaveChanges();
-        return player;
+        await Context.SaveChangesAsync();
+        return NoContent();
     }
 }

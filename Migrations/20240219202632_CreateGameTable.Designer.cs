@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using lasertech_backend.Model;
@@ -11,9 +12,11 @@ using lasertech_backend.Model;
 namespace lasertech_backend.Migrations
 {
     [DbContext(typeof(GameContext))]
-    partial class GameContextModelSnapshot : ModelSnapshot
+    [Migration("20240219202632_CreateGameTable")]
+    partial class CreateGameTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,62 +63,6 @@ namespace lasertech_backend.Migrations
                     b.HasKey("PlayerID");
 
                     b.ToTable("players");
-                });
-
-            modelBuilder.Entity("lasertech_backend.Model.PlayerSession", b =>
-                {
-                    b.Property<int>("PlayerSessionID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PlayerSessionID"));
-
-                    b.Property<int>("EquipmentID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("GameID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PlayerID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PlayerScore")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Team")
-                        .HasColumnType("integer");
-
-                    b.HasKey("PlayerSessionID");
-
-                    b.HasIndex("GameID");
-
-                    b.HasIndex("PlayerID");
-
-                    b.ToTable("playerSessions");
-                });
-
-            modelBuilder.Entity("lasertech_backend.Model.PlayerSession", b =>
-                {
-                    b.HasOne("lasertech_backend.Model.Game", "Game")
-                        .WithMany("PlayerSessions")
-                        .HasForeignKey("GameID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("lasertech_backend.Model.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-
-                    b.Navigation("Player");
-                });
-
-            modelBuilder.Entity("lasertech_backend.Model.Game", b =>
-                {
-                    b.Navigation("PlayerSessions");
                 });
 #pragma warning restore 612, 618
         }
