@@ -26,15 +26,32 @@ public class PlayerController : ControllerBase
     public async Task<ActionResult<Player>> Get(int playerID)
     {
         var player = await Context.players.FindAsync(playerID);
-        return Ok(player);
+        if (player != null)
+        {
+            return Ok(player);
+        }
+        else
+        {
+            return NotFound(player);
+        }
+        
     }
 
     [HttpPost]
     public async Task<ActionResult<Player>> Post([FromBody] Player player)
     {
-        Context.Add(player);
-        await Context.SaveChangesAsync();
-        return Ok(player);
+        var checkPlayer = await Context.players.FindAsync(player.PlayerID);
+        if (checkPlayer == null)
+        {
+            Context.Add(player);
+            await Context.SaveChangesAsync();
+            
+            return Ok(player);
+        }
+        else
+        {
+            return Conflict(player);
+        }
     }
 
     [HttpPut("{playerID}")]
@@ -45,5 +62,20 @@ public class PlayerController : ControllerBase
         player.LastUpdated = DateTime.UtcNow;
         await Context.SaveChangesAsync();
         return NoContent();
+    }
+
+    [HttpDelete("{playerID}")]
+    public async Task<ActionResult> Delete(int playerID)
+    {
+        var playerToDelete = await Context.players.FindAsync(playerID);
+
+        if (playerToDelete == null)
+        {
+            return NotFound();
+        }
+        Context.players.Remove(playerToDelete);
+        await Context.SaveChangesAsync();
+
+        return Ok(playerToDelete);
     }
 }
