@@ -27,4 +27,12 @@ public class PlayerSession
         PlayerScore = 0;
         EquipmentID = equipmentID;
     }
+    public PlayerSession(PlayerSessionDTO p)
+    {
+        GameID = p.GameID;
+        PlayerID = p.PlayerID;
+        Team = p.Team;
+        PlayerScore = 0;
+        EquipmentID = p.EquipmentID;
+    }
 }

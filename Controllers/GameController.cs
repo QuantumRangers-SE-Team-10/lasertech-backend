@@ -41,13 +41,11 @@ public class GameController : ControllerBase
         return Ok(game);
     }
     [HttpPost("{gameID}/{playerID}")]
-    public async Task<ActionResult<Game>> Post(int gameID, int playerID)
+    public async Task<ActionResult<Game>> Post(int gameID, [FromBody] PlayerSession playerSession)
     {
-        var player = await Context.players.FindAsync(playerID);
         var game = await Context.games
             .Include(g => g.PlayerSessions)
             .FirstOrDefaultAsync(g => g.GameID == gameID);
-        var playerSession = new PlayerSession(gameID, playerID, Enum.TeamSide.Red, 1);
         game.PlayerSessions.Add(playerSession);
         await Context.SaveChangesAsync();
         return Ok(game);
