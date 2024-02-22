@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder();
 var env = builder.Environment;
-
 var connectionString = builder.Configuration.GetConnectionString("GameContext");
 builder.Services.AddDbContext<GameContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddControllers()
@@ -26,10 +25,12 @@ builder.Services.AddCors(options =>
 
 int udpPort = 7500;
 
-var udpListenerService = new UdpListenerService(udpPort);
-var udpCancellationToken = new CancellationTokenSource().Token;
+var udpListenerService = new UdpService(udpPort, udpPort + 1);
+var udpListenCancellationToken = new CancellationTokenSource().Token;
+var udpBroadcastCancellationToken = new CancellationTokenSource().Token;
 var app = builder.Build();
-Task.Run(() => udpListenerService.StartListening(udpCancellationToken), udpCancellationToken);
+Task.Run(() => udpListenerService.StartListening(udpListenCancellationToken), udpListenCancellationToken);
+Task.Run(() => udpListenerService.StartBroadcast(udpBroadcastCancellationToken), udpBroadcastCancellationToken);
 
 if (env.IsDevelopment())
 {

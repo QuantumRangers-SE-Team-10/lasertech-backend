@@ -34,7 +34,7 @@ public class PlayerController : ControllerBase
     {
         Context.Add(player);
         await Context.SaveChangesAsync();
-        return Ok(player);
+        return Ok();
     }
 
     [HttpPut("{playerID}")]
