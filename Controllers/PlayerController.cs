@@ -27,7 +27,6 @@ public class PlayerController : ControllerBase
     {
         var player = await Context.players.FindAsync(playerID);
         return Ok(player);
-        
     }
 
     [HttpPost]
@@ -38,7 +37,6 @@ public class PlayerController : ControllerBase
         {
             Context.Add(player);
             await Context.SaveChangesAsync();
-            
             return Ok(player);
         }
         else
