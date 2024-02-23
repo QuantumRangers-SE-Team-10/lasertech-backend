@@ -23,16 +23,16 @@ builder.Services.AddCors(options =>
     });
 });
 
-int udpPort = 7500;
+int udpPort = 7501;
 
-var udpListenerService = new UdpService(udpPort, udpPort + 1);
+var udpListenerService = new UdpService(udpPort, udpPort - 1);
 var udpListenCancellationToken = new CancellationTokenSource().Token;
 var udpBroadcastCancellationToken = new CancellationTokenSource().Token;
 var app = builder.Build();
 Task.Run(() => udpListenerService.StartListening(udpListenCancellationToken), udpListenCancellationToken);
 Task.Run(() => udpListenerService.StartBroadcast(udpBroadcastCancellationToken), udpBroadcastCancellationToken);
 
-if (env.IsDevelopment())
+if (env.IsDevelopment() || !env.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>

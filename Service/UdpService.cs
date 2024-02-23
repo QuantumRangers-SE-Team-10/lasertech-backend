@@ -36,11 +36,10 @@ public class UdpService
             if (equipmentIDs.Count < 1) continue;
             foreach (var equipmentID in this.equipmentIDs)
             {
-                Console.WriteLine("here");
                 byte[] bytes = Encoding.ASCII.GetBytes(equipmentID);
                 await udpClient.SendAsync(bytes, bytes.Length, "127.0.0.1",transmitPort);
             }
-            await Task.Delay(3000);
+            await Task.Delay(1000);
         }
     }
 }

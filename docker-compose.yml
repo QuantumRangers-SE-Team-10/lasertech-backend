@@ -1,6 +1,17 @@
 version: '3.8'
 services:
-  lasertech-backend:
-    build: .
+  db:
+    image: alextran0899/laser-tech-db
+    environment:
+      POSTGRES_DB: LaserTech
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: 1234
     ports:
-      - "8080:8080"
+      - "5432:5432"
+        
+  backend:
+    image: alextran0899/laser-tech-back-end
+    ports:
+      - "5243:8080"
+    depends_on:
+      - db
