@@ -8,9 +8,9 @@ services:
       POSTGRES_PASSWORD: 1234
     ports:
       - "5432:5432"
-        
+  
   backend:
-    image: alextran0899/laser-tech-back-end
+    image: alextran0899/laser-tech-back-end-prod
     network_mode: "host"
     depends_on:
       - db
