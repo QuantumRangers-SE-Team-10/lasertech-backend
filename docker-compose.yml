@@ -11,7 +11,13 @@ services:
         
   backend:
     image: alextran0899/laser-tech-back-end
-    ports:
-      - "5243:8080"
+    network_mode: "host"
     depends_on:
       - db
+
+  frontend:
+    image: alextran0899/laser-tech-front-end
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend

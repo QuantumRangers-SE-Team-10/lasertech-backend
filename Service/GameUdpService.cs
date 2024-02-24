@@ -2,15 +2,16 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using lasertech_backend.Interface;
 
-public class UdpService
+public class GameUdpService : IUdpService
 {
     private readonly UdpClient udpClient;
     private readonly int listenPort;
     private readonly int transmitPort;
     private List<string> equipmentIDs;
 
-    public UdpService(int listenPort, int transmitPort)
+    public GameUdpService(int listenPort, int transmitPort)
     {
         this.listenPort = listenPort;
         this.transmitPort = transmitPort;
@@ -26,20 +27,27 @@ public class UdpService
             var receivedResult = await udpClient.ReceiveAsync();
             string receivedMessage = Encoding.ASCII.GetString(receivedResult.Buffer);
             Console.WriteLine($"Received: {receivedMessage}");
-            this.equipmentIDs.Add(receivedMessage);
         }
     }
+
     public async Task StartBroadcast(CancellationToken token)
     {
+        Console.WriteLine("Broadcast started...");
         while (!token.IsCancellationRequested)
         {
             if (equipmentIDs.Count < 1) continue;
+            Console.WriteLine("Broadcasting equpmenent ID...");
             foreach (var equipmentID in this.equipmentIDs)
             {
                 byte[] bytes = Encoding.ASCII.GetBytes(equipmentID);
-                await udpClient.SendAsync(bytes, bytes.Length, "127.0.0.1",transmitPort);
+                await udpClient.SendAsync(bytes, bytes.Length, "127.0.0.1", transmitPort);
             }
             await Task.Delay(1000);
         }
+    }
+
+    public void AddEquipmentID(int equipmentID)
+    {
+        this.equipmentIDs.Add(equipmentID.ToString());
     }
 }

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using lasertech_backend.DTOs;
 
 namespace lasertech_backend.Model;
 
@@ -12,11 +13,19 @@ public class Player
     public string Codename { get; set; }
 
     [DataType(DataType.DateTime, ErrorMessage = "Invalid datatype for LastUpdated")]
-    public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
+    public DateTime LastUpdated { get; set; }
 
     public Player(int playerID, string codename)
     {
         PlayerID = playerID;
         Codename = codename;
+        LastUpdated = DateTime.UtcNow;
+    }
+
+    public Player(PlayerDTO playerDTO)
+    {
+        PlayerID = playerDTO.PlayerID;
+        Codename = playerDTO.Codename;
+        LastUpdated = DateTime.UtcNow;
     }
 }
