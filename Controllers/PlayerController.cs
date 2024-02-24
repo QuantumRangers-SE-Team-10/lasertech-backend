@@ -27,6 +27,11 @@ public class PlayerController : ControllerBase
     public async Task<ActionResult<Player>> Get(int playerID)
     {
         var player = await Context.players.FindAsync(playerID);
+        if (player == null)
+        {
+            return NotFound($"Player with ID {playerID} not found.");
+        }
+
         return Ok(player);
     }
 
