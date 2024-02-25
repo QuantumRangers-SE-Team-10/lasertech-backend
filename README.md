@@ -1,6 +1,6 @@
 
 # How to run the application locally
-1. Ensure that you are running this on the provide Ubuntu VM (these instruction will not work on Mac or Window due to network restriction)
+1. Ensure that you are running this on the provided Ubuntu VM (these instruction will not work on Mac or Window due to network restriction)
 2. Install docker (look at the bottom of this page if you don't already have docker installed)
 3. Download the repo
 4. Navigate to the directory containing the "docker-compose.yml" file, type "ls" in the terminal to confirm.
