@@ -16,7 +16,7 @@ services:
       - db
 
   frontend:
-    image: alextran0899/laser-tech-front-end
+    image: shawnericksen/laser-tech-front-end-prod
     ports:
       - "3000:3000"
     depends_on:
