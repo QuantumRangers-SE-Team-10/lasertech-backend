@@ -17,7 +17,7 @@
 ## Addtional Info
 - The backend is running on port 8080, Swagger UI will display the API documentation if you navigate to ```127.0.0.1:8080```
 - The pre-migrated PostgreSQL database is running on port 5432, you can try connecting to it using the credential in the docker compose file. The host will be ```127.0.0.1```
-- The images is stored remotely on Docker hub.
+- The images are stored remotely on Docker hub.
 - The backend image contain a .Net runtime along with a compiled version of the .NET core app.
 - The frontend image contain a Node.js runtime along with a compiled version of the React app. 
 
