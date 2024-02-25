@@ -14,7 +14,7 @@
 - If your internet connection get disconnected while Docker download the image, re-run the command ```sudo docker compose up``` 
 ## Addtional Info
 - The Backend is running at localhost:8080
-- The PostgreSQL database is running on port 5432, you can try to connect to it with the credential in the docker compose file.
+- The pre-migrated PostgreSQL database is running on port 5432, you can try to connect to it with the credential in the docker compose file.
 
 
 ## Docker installation instruction
