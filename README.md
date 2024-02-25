@@ -10,7 +10,7 @@
 
 6. Ensure that nothing is running on port 8080,3000, 5432 (postgresql). You will get an error if those port are not freed. 
 7. Run ```sudo docker compose up``` and provide the password
-8. Open your web browser and navigate to ```localhost:3000```
+8. Open your web browser and navigate to ```127.0.0.1:3000```
 
 ## Troubleshooting
 - If your internet connection get disconnected while Docker download the image, re-run the command ```sudo docker compose up``` 
