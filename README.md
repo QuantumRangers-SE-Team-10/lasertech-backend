@@ -13,9 +13,11 @@
 ## Troubleshooting
 - If your internet connection get disconnected while Docker download the image, re-run the command ```sudo docker compose up``` 
 ## Addtional Info
-- The Backend is running at localhost:8080
+- The backend is running at localhost:8080
 - The pre-migrated PostgreSQL database is running on port 5432, you can try to connect to it with the credential in the docker compose file.
-
+- The images is stored remotely on Docker hub.
+- The backend image contain a .Net runtime along with a compiled version of the .NET core app.
+- The frontend image contain a Node.js runtime along with a compiled version of the React app. 
 
 ## Docker installation instruction
 1. Navigate to this page for reference https://docs.docker.com/engine/install/ubuntu/
