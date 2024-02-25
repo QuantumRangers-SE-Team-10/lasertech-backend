@@ -8,7 +8,7 @@
 4. Ensure your docker-compose.yml file looks like this
 ![Screenshot from 2024-02-24 20-36-54](https://github.com/QuantumRangers-SE-Team-10/lasertech-backend/assets/76791231/082b9d4d-79ac-4b3b-9cc8-8f0085125801)
 
-6. Ensure that nothing is running on port 8080, 3000, 5432 (postgresql). You will get an error if those port are not freed. 
+6. Ensure that nothing is running on port 8080, 3000, 5432 (postgresql). You will get an error if those ports are not freed. 
 7. Run ```sudo docker compose up``` and provide the password
 8. Open your web browser and navigate to ```127.0.0.1:3000```
 
