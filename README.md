@@ -1,14 +1,14 @@
 
 # How to run the application locally
-1. install docker (look at the bottom of this page if you don't already have docker installed)
-2. download the repo
-3. navigate to the directory containing the "docker-compose.yml" file, type "ls" in the terminal to confirm.
+1. Install docker (look at the bottom of this page if you don't already have docker installed)
+2. Download the repo
+3. Navigate to the directory containing the "docker-compose.yml" file, type "ls" in the terminal to confirm.
 ![Screenshot from 2024-02-24 20-38-11](https://github.com/QuantumRangers-SE-Team-10/lasertech-backend/assets/76791231/a83d3a11-5703-4e68-8769-df84f8f34e54)
 
 4. Ensure your docker-compose.yml file looks like this
 ![Screenshot from 2024-02-24 20-36-54](https://github.com/QuantumRangers-SE-Team-10/lasertech-backend/assets/76791231/082b9d4d-79ac-4b3b-9cc8-8f0085125801)
-5. run ```sudo docker compose up``` and provide the password
-6. open your web browser and navigate to ```localhost:3000```
+5. Run ```sudo docker compose up``` and provide the password
+6. Open your web browser and navigate to ```localhost:3000```
 
 ## Troubleshooting
 - If your internet connection get disconnected while Docker download the image, re-run the command ```sudo docker compose up``` 
@@ -18,8 +18,8 @@
 
 
 ## Docker installation instruction
-1. navigate to this page for reference https://docs.docker.com/engine/install/ubuntu/
-2. run these commands in the terminal
+1. Navigate to this page for reference https://docs.docker.com/engine/install/ubuntu/
+2. Run these commands in the terminal
 3. Add Docker's official GPG key
 ```
 sudo apt-get update
