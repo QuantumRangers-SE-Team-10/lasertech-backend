@@ -35,6 +35,7 @@ public class GameUdpService : IUdpService
         Console.WriteLine("Broadcast started...");
         while (!token.IsCancellationRequested)
         {
+            await Task.Delay(2000);
             if (equipmentIDs.Count < 1) continue;
             Console.WriteLine("Broadcasting equpmenent ID...");
             foreach (var equipmentID in this.equipmentIDs)
@@ -42,7 +43,6 @@ public class GameUdpService : IUdpService
                 byte[] bytes = Encoding.ASCII.GetBytes(equipmentID);
                 await udpClient.SendAsync(bytes, bytes.Length, "127.0.0.1", transmitPort);
             }
-            await Task.Delay(1000);
         }
     }
 
