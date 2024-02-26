@@ -7,7 +7,8 @@
 ![Screenshot from 2024-02-24 20-38-11](https://github.com/QuantumRangers-SE-Team-10/lasertech-backend/assets/76791231/a83d3a11-5703-4e68-8769-df84f8f34e54)
 
 5. Ensure your docker-compose.yml file looks like this
-![Screenshot from 2024-02-24 20-36-54](https://github.com/QuantumRangers-SE-Team-10/lasertech-backend/assets/76791231/082b9d4d-79ac-4b3b-9cc8-8f0085125801)
+<img width="891" alt="image" src="https://github.com/QuantumRangers-SE-Team-10/lasertech-backend/assets/76791231/d601d169-26ed-45ec-83df-a0cd5882d149">
+
 
 6. Ensure that nothing is running on port 8080, 3000, 5432 (postgresql). You will get an error if those ports are not freed. 
 7. Run ```sudo docker compose up``` and provide the password
