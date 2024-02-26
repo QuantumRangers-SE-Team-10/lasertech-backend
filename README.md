@@ -1,4 +1,15 @@
 
+###  Team 10 Members
+
+Name | GitHub | Slack
+|--------------|-----------|------------|
+Alex Tran | AlexTran0899 | Alex Tran
+Shawn Ericksen | shawnericksen | Shawn Ericksen
+Malachi Massey | MalachiMassey | Malachi Massey
+Cassie Smith | CassieSmith8001 | Casi Siempre
+Shawn Wheeler | Shawn-Wheeler | Shawn Wheeler
+Tyler Cash | tcash1990 | Tyler Cash
+
 # How to run the application locally
 1. Ensure that you are running this on the provided Ubuntu VM (these instruction will not work on Mac or Window due to network restriction)
 2. Install Docker (look at the bottom of this page if you don't already have docker installed)
