@@ -1,10 +1,10 @@
 using lasertech_backend.Controllers;
+using lasertech_backend.Interface;
 using lasertech_backend.Model;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder();
 var env = builder.Environment;
-
 var connectionString = builder.Configuration.GetConnectionString("GameContext");
 builder.Services.AddDbContext<GameContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddControllers()
@@ -12,6 +12,11 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
     });
+
+int udpListenPort = 7501;
+int udpBroadcastPort = udpListenPort - 1;
+builder.Services.AddSingleton<GameUdpService>(new GameUdpService(udpListenPort, udpBroadcastPort));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
@@ -24,14 +29,9 @@ builder.Services.AddCors(options =>
     });
 });
 
-int udpPort = 7500;
-
-var udpListenerService = new UdpListenerService(udpPort);
-var udpCancellationToken = new CancellationTokenSource().Token;
 var app = builder.Build();
-Task.Run(() => udpListenerService.StartListening(udpCancellationToken), udpCancellationToken);
 
-if (env.IsDevelopment())
+if (env.IsDevelopment() || !env.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>

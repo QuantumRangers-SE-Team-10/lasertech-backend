@@ -13,7 +13,7 @@ Tyler Cash | tcash1990 | Tyler Cash
 # How to run the application locally
 1. Ensure that you are running this on the provided Ubuntu VM (these instruction will not work on Mac or Window due to network restriction)
 2. Install Docker (look at the bottom of this page if you don't already have docker installed)
-3. Download the repo
+3. Download the repository
 4. Navigate to the directory containing the "docker-compose.yml" file, type "ls" in the terminal to confirm.
 ![Screenshot from 2024-02-24 20-38-11](https://github.com/QuantumRangers-SE-Team-10/lasertech-backend/assets/76791231/a83d3a11-5703-4e68-8769-df84f8f34e54)
 

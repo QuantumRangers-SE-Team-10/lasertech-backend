@@ -1,3 +1,4 @@
+using lasertech_backend.DTOs;
 using lasertech_backend.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,22 +27,28 @@ public class PlayerController : ControllerBase
     public async Task<ActionResult<Player>> Get(int playerID)
     {
         var player = await Context.players.FindAsync(playerID);
+        if (player == null)
+        {
+            return NotFound($"Player with ID {playerID} not found.");
+        }
+
         return Ok(player);
     }
 
     [HttpPost]
-    public async Task<ActionResult<Player>> Post([FromBody] Player player)
+    public async Task<ActionResult<Player>> Post(PlayerDTO p)
     {
+        var player = new Player(p);
         Context.Add(player);
         await Context.SaveChangesAsync();
         return Ok(player);
     }
 
     [HttpPut("{playerID}")]
-    public async Task<ActionResult> Put(int playerID, [FromBody] string newCodename)
+    public async Task<ActionResult> Put(PlayerDTO p)
     {
-        var player = await Context.players.FindAsync(playerID)!;
-        player.Codename = newCodename;
+        var player = await Context.players.FindAsync(p.PlayerID)!;
+        player.Codename = p.Codename;
         player.LastUpdated = DateTime.UtcNow;
         await Context.SaveChangesAsync();
         return NoContent();

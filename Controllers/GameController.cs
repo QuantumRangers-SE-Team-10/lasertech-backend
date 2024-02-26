@@ -10,10 +10,16 @@ namespace lasertech_backend.Controllers;
 public class GameController : ControllerBase
 {
     private readonly GameContext Context;
+    private CancellationToken udpListenCancellationToken;
+    private CancellationToken udpBroadcastCancellationToken;
+    private GameUdpService gameUdp;
 
-    public GameController(GameContext context)
+    public GameController(GameContext context, GameUdpService gameUdp)
     {
         this.Context = context;
+        this.udpListenCancellationToken = new CancellationTokenSource().Token;
+        this.udpBroadcastCancellationToken = new CancellationTokenSource().Token;
+        this.gameUdp = gameUdp;
     }
 
     [HttpGet]
@@ -38,6 +44,7 @@ public class GameController : ControllerBase
         var game = new Game();
         Context.Add(game);
         await Context.SaveChangesAsync();
-        return game;
+        Task.Run(() => gameUdp.StartBroadcast(udpBroadcastCancellationToken), udpBroadcastCancellationToken);
+        return Ok(game);
     }
 }
