@@ -67,7 +67,7 @@ public class PlayerController : ControllerBase
     [HttpPut("{playerID}")]
     public async Task<ActionResult> Put(PlayerDTO p)
     {
-        var player = await Context.players.FindAsync(p.playerID)!;
+        var player = await Context.players.FindAsync(p.PlayerID)!;
         if (player != null)
         {
             player.Codename = p.Codename;
