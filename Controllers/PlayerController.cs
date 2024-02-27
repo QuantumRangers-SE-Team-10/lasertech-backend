@@ -26,33 +26,58 @@ public class PlayerController : ControllerBase
     public async Task<ActionResult<Player>> Get(int playerID)
     {
         var player = await Context.players.FindAsync(playerID);
-        return Ok(player);
+        if (player != null)
+        {
+            return Ok(player);
+        } else
+        {
+            return NotFound(player);
+        }
+        
     }
 
     [HttpPost]
     public async Task<ActionResult<Player>> Post([FromBody] Player player)
     {
-        var checkPlayer = await Context.players.FindAsync(player.PlayerID);
-        if (checkPlayer == null)
+        if (ModelState.IsValid)
         {
-            Context.Add(player);
-            await Context.SaveChangesAsync();
-            return Ok(player);
+            var checkPlayer = await Context.players.FindAsync(player.PlayerID);
+            if (checkPlayer == null)
+            {
+                Context.Add(player);
+                await Context.SaveChangesAsync();
+
+                return Ok(player);
+            }
+            else
+            {
+                return Conflict(player);
+            }
         }
-        else
         {
-            return Conflict(player);
+            // Handle validation errors
+            var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
+            return BadRequest(errors);
         }
+
     }
 
     [HttpPut("{playerID}")]
     public async Task<ActionResult> Put(int playerID, [FromBody] string newCodename)
     {
         var player = await Context.players.FindAsync(playerID)!;
-        player.Codename = newCodename;
-        player.LastUpdated = DateTime.UtcNow;
-        await Context.SaveChangesAsync();
-        return NoContent();
+        if (player != null)
+        {
+            player.Codename = newCodename;
+            player.LastUpdated = DateTime.UtcNow;
+            await Context.SaveChangesAsync();
+            return NoContent();
+        }
+        else
+        {
+            return NotFound(player);
+        }
+        
     }
 
     [HttpDelete("{playerID}")]

@@ -2,6 +2,7 @@ using lasertech_backend.DTOs;
 using lasertech_backend.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 
 namespace lasertech_backend.Controllers;
 
@@ -30,6 +31,22 @@ public class GameController : ControllerBase
             .Include(g => g.PlayerSessions)
             .FirstOrDefaultAsync(g => g.GameID == gameID);
         return Ok(game);
+    }
+    [HttpGet("{gameID}/codenames")]
+    public async Task<ActionResult<List<string>>> GetCodeNames(int gameID)
+    {
+        var game = await Context.games
+            .Include(g => g.PlayerSessions)
+            .FirstOrDefaultAsync(g => g.GameID == gameID);
+        List<string> codeNames = new List<string>();
+        foreach (PlayerSession playerSession in game.PlayerSessions)
+        {
+            var player = await Context.players.FindAsync(playerSession.PlayerID);
+            codeNames.Add(player.Codename);
+        }
+
+        return Ok(codeNames);
+    
     }
 
     [HttpPost]
