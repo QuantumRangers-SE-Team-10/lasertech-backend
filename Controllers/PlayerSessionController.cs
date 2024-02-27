@@ -80,5 +80,5 @@ public class PlayerSessionController : ControllerBase
 
         var playerSessions = await Context.playerSessions.ToListAsync();
         return Ok(playerSessions);
-    } 
+    }
 }
