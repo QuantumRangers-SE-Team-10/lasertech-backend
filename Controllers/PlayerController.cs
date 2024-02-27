@@ -79,7 +79,6 @@ public class PlayerController : ControllerBase
         {
             return NotFound(player);
         }
-        
     }
 
     [HttpDelete("{playerID}")]

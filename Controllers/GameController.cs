@@ -52,7 +52,6 @@ public class GameController : ControllerBase
         }
 
         return Ok(codeNames);
-    
     }
 
     [HttpPost]
@@ -71,8 +70,8 @@ public class GameController : ControllerBase
             .FirstOrDefaultAsync(g => g.GameID == gameID);
         game.PlayerSessions.Add(playerSession);
         await Context.SaveChangesAsync();
-        
-        Task.Run(() => gameUdp.StartBroadcast(udpBroadcastCancellationToken), udpBroadcastCancellationToken);
+
+        await Task.Run(() => gameUdp.StartBroadcast(udpBroadcastCancellationToken), udpBroadcastCancellationToken);
         return Ok(game);
     }
 }

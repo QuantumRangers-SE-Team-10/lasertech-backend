@@ -28,7 +28,6 @@ public class PlayerSession
         EquipmentID = equipmentID;
     }
 
-  
     public PlayerSession(PlayerSessionDTO p)
     {
         GameID = p.GameID;

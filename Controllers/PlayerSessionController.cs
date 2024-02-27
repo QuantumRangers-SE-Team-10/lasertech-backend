@@ -3,7 +3,6 @@ using lasertech_backend.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
-
 using lasertech_backend.Interface;
 
 
@@ -81,8 +80,5 @@ public class PlayerSessionController : ControllerBase
 
         var playerSessions = await Context.playerSessions.ToListAsync();
         return Ok(playerSessions);
-    }
-
-
-    
+    } 
 }
