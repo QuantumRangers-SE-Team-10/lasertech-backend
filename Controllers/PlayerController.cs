@@ -27,6 +27,7 @@ public class PlayerController : ControllerBase
     public async Task<ActionResult<Player>> Get(int playerID)
     {
         var player = await Context.players.FindAsync(playerID);
+
         if (player == null)
         {
             return NotFound($"Player with ID {playerID} not found.");
@@ -39,18 +40,60 @@ public class PlayerController : ControllerBase
     public async Task<ActionResult<Player>> Post(PlayerDTO p)
     {
         var player = new Player(p);
-        Context.Add(player);
-        await Context.SaveChangesAsync();
-        return Ok(player);
+
+        if (ModelState.IsValid)
+        {
+            var checkPlayer = await Context.players.FindAsync(player.PlayerID);
+            if (checkPlayer == null)
+            {
+                Context.Add(player);
+                await Context.SaveChangesAsync();
+
+                return Ok(player);
+            }
+            else
+            {
+                return Conflict(player);
+            }
+        }
+        {
+            // Handle validation errors
+            var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
+            return BadRequest(errors);
+        }
+
     }
 
     [HttpPut("{playerID}")]
     public async Task<ActionResult> Put(PlayerDTO p)
     {
         var player = await Context.players.FindAsync(p.PlayerID)!;
-        player.Codename = p.Codename;
-        player.LastUpdated = DateTime.UtcNow;
+        if (player != null)
+        {
+            player.Codename = p.Codename;
+            player.LastUpdated = DateTime.UtcNow;
+            await Context.SaveChangesAsync();
+            return NoContent();
+        }
+        else
+        {
+            return NotFound(player);
+        }
+    }
+
+    [HttpDelete("{playerID}")]
+    public async Task<ActionResult> Delete(int playerID)
+    {
+        var playerToDelete = await Context.players.FindAsync(playerID);
+
+        if (playerToDelete == null)
+        {
+            return NotFound();
+        }
+        Context.players.Remove(playerToDelete);
+
         await Context.SaveChangesAsync();
-        return NoContent();
+
+        return Ok(playerToDelete);
     }
 }

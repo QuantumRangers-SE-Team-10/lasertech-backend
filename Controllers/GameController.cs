@@ -2,6 +2,7 @@ using lasertech_backend.DTOs;
 using lasertech_backend.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 
 namespace lasertech_backend.Controllers;
 
@@ -37,6 +38,21 @@ public class GameController : ControllerBase
             .FirstOrDefaultAsync(g => g.GameID == gameID);
         return Ok(game);
     }
+    [HttpGet("{gameID}/codenames")]
+    public async Task<ActionResult<List<string>>> GetCodeNames(int gameID)
+    {
+        var game = await Context.games
+            .Include(g => g.PlayerSessions)
+            .FirstOrDefaultAsync(g => g.GameID == gameID);
+        List<string> codeNames = new List<string>();
+        foreach (PlayerSession playerSession in game.PlayerSessions)
+        {
+            var player = await Context.players.FindAsync(playerSession.PlayerID);
+            codeNames.Add(player.Codename);
+        }
+
+        return Ok(codeNames);
+    }
 
     [HttpPost]
     public async Task<ActionResult<Game>> Post()
@@ -44,7 +60,18 @@ public class GameController : ControllerBase
         var game = new Game();
         Context.Add(game);
         await Context.SaveChangesAsync();
-        Task.Run(() => gameUdp.StartBroadcast(udpBroadcastCancellationToken), udpBroadcastCancellationToken);
+        return Ok(game);
+    }
+    [HttpPost("{gameID}/{playerID}")]
+    public async Task<ActionResult<Game>> Post(int gameID, [FromBody] PlayerSession playerSession)
+    {
+        var game = await Context.games
+            .Include(g => g.PlayerSessions)
+            .FirstOrDefaultAsync(g => g.GameID == gameID);
+        game.PlayerSessions.Add(playerSession);
+        await Context.SaveChangesAsync();
+
+        await Task.Run(() => gameUdp.StartBroadcast(udpBroadcastCancellationToken), udpBroadcastCancellationToken);
         return Ok(game);
     }
 }
