@@ -1,3 +1,4 @@
+using lasertech_backend.DTOs;
 using lasertech_backend.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,19 +27,20 @@ public class PlayerController : ControllerBase
     public async Task<ActionResult<Player>> Get(int playerID)
     {
         var player = await Context.players.FindAsync(playerID);
-        if (player != null)
+
+        if (player == null)
         {
-            return Ok(player);
-        } else
-        {
-            return NotFound(player);
+            return NotFound($"Player with ID {playerID} not found.");
         }
-        
+
+        return Ok(player);
     }
 
     [HttpPost]
-    public async Task<ActionResult<Player>> Post([FromBody] Player player)
+    public async Task<ActionResult<Player>> Post(PlayerDTO p)
     {
+        var player = new Player(p);
+
         if (ModelState.IsValid)
         {
             var checkPlayer = await Context.players.FindAsync(player.PlayerID);
@@ -63,12 +65,12 @@ public class PlayerController : ControllerBase
     }
 
     [HttpPut("{playerID}")]
-    public async Task<ActionResult> Put(int playerID, [FromBody] string newCodename)
+    public async Task<ActionResult> Put(PlayerDTO p)
     {
-        var player = await Context.players.FindAsync(playerID)!;
+        var player = await Context.players.FindAsync(p.playerID)!;
         if (player != null)
         {
-            player.Codename = newCodename;
+            player.Codename = p.Codename;
             player.LastUpdated = DateTime.UtcNow;
             await Context.SaveChangesAsync();
             return NoContent();
@@ -90,6 +92,7 @@ public class PlayerController : ControllerBase
             return NotFound();
         }
         Context.players.Remove(playerToDelete);
+
         await Context.SaveChangesAsync();
 
         return Ok(playerToDelete);

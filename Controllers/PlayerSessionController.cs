@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
 
+using lasertech_backend.Interface;
+
+
 namespace lasertech_backend.Controllers;
 
 [Route("api/[controller]")]
@@ -12,10 +15,12 @@ namespace lasertech_backend.Controllers;
 public class PlayerSessionController : ControllerBase
 {
     private readonly GameContext Context;
+    private GameUdpService Udp;
 
-    public PlayerSessionController(GameContext context)
+    public PlayerSessionController(GameContext context, GameUdpService Udp)
     {
         this.Context = context;
+        this.Udp = Udp;
     }
 
     [HttpGet]
@@ -42,15 +47,15 @@ public class PlayerSessionController : ControllerBase
 
 
     [HttpPost]
-    public async Task<ActionResult<PlayerSession>> Post([FromBody] PlayerSessionDTO playerSessionDTO)
+    public async Task<ActionResult<PlayerSession>> Post([FromBody] PlayerSessionDTO p)
     {
-        var playerSession = new PlayerSession(playerSessionDTO);
+        var playerSession = new PlayerSession(p);
         var checkPlayer = await Context.playerSessions.FindAsync(playerSession.PlayerID);
         if (checkPlayer == null)
         {
             Context.Add(playerSession);
             await Context.SaveChangesAsync();
-
+            Udp.AddEquipmentID(p.EquipmentID);
             return Ok(playerSession);
         }
         else
@@ -73,5 +78,11 @@ public class PlayerSessionController : ControllerBase
         await Context.SaveChangesAsync();
 
         return Ok(playerToDelete);
+
+        var playerSessions = await Context.playerSessions.ToListAsync();
+        return Ok(playerSessions);
+    }
+
+
     }
 }
