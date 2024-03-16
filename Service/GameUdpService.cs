@@ -41,7 +41,7 @@ public class GameUdpService : IUdpService
             foreach (var equipmentID in this.equipmentIDs)
             {
                 byte[] bytes = Encoding.ASCII.GetBytes(equipmentID);
-                await udpClient.SendAsync(bytes, bytes.Length, "127.0.0.1", transmitPort);
+                await udpClient.SendAsync(bytes, bytes.Length, "192.168.1.255", transmitPort);
             }
         }
     }
